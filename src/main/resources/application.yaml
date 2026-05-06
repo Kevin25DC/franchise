@@ -1,3 +1,14 @@
 spring:
-  application:
-    name: webapi
+  r2dbc:
+    url: ${DB_R2DBC_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  flyway:
+    url: ${DB_JDBC_URL}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    enabled: true
+
+server:
+  port: 8080
