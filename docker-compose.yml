@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: franchise
+      POSTGRES_USER: franchise
+      POSTGRES_PASSWORD: franchise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      DB_R2DBC_URL: "r2dbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0"
+      DB_JDBC_URL: "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres?prepareThreshold=0"
+      DB_USER: ""
+      DB_PASSWORD: ""
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
